@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyl.mall.dao.OrdersDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.wyl.mall.entity.OrdersEntity" id="ordersMap">
+        <result property="id" column="id"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="lastModifiedDate" column="last_modified_date"/>
+        <result property="version" column="version"/>
+        <result property="address" column="address"/>
+        <result property="amount" column="amount"/>
+        <result property="amountPaid" column="amount_paid"/>
+        <result property="areaName" column="area_name"/>
+        <result property="completeDate" column="complete_date"/>
+        <result property="consignee" column="consignee"/>
+        <result property="exchangePoint" column="exchange_point"/>
+        <result property="expire" column="expire"/>
+        <result property="fee" column="fee"/>
+        <result property="freight" column="freight"/>
+        <result property="invoiceContent" column="invoice_content"/>
+        <result property="invoiceTaxNumber" column="invoice_tax_number"/>
+        <result property="invoiceTitle" column="invoice_title"/>
+        <result property="isAllocatedStock" column="is_allocated_stock"/>
+        <result property="isExchangePoint" column="is_exchange_point"/>
+        <result property="isReviewed" column="is_reviewed"/>
+        <result property="memo" column="memo"/>
+        <result property="offsetAmount" column="offset_amount"/>
+        <result property="paymentMethodName" column="payment_method_name"/>
+        <result property="paymentMethodType" column="payment_method_type"/>
+        <result property="phone" column="phone"/>
+        <result property="price" column="price"/>
+        <result property="quantity" column="quantity"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="returnedQuantity" column="returned_quantity"/>
+        <result property="rewardPoint" column="reward_point"/>
+        <result property="shippedQuantity" column="shipped_quantity"/>
+        <result property="shippingMethodName" column="shipping_method_name"/>
+        <result property="sn" column="sn"/>
+        <result property="status" column="status"/>
+        <result property="tax" column="tax"/>
+        <result property="type" column="type"/>
+        <result property="weight" column="weight"/>
+        <result property="zipCode" column="zip_code"/>
+        <result property="areaId" column="area_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="paymentMethodId" column="payment_method_id"/>
+        <result property="shippingMethodId" column="shipping_method_id"/>
+        <result property="storeId" column="store_id"/>
+        <result property="isExport" column="is_export"/>
+        <result property="exportDate" column="export_date"/>
+        <result property="isRefund" column="is_refund"/>
+        <result property="erpSync" column="erp_sync"/>
+        <result property="erpSyncTime" column="erp_sync_time"/>
+        <result property="erpMsg" column="erp_msg"/>
+        <result property="dataSource" column="data_source"/>
+    </resultMap>
+
+
+</mapper>
