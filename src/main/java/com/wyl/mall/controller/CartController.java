@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import com.wyl.mall.service.CartService;
  */
 @RestController
 @RequestMapping("mall/cart")
+@Api(value = "mall/cart", tags = "购物车")
 public class CartController {
     @Autowired
     private CartService cartService;
@@ -34,6 +36,10 @@ public class CartController {
      * 列表
      */
     @RequestMapping("/list")
+    @ApiOperation(value = "获取购物车列表")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "username",value = "123",required = true)
+    })
     //@RequiresPermissions("mall:cart:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = cartService.queryPage(params);

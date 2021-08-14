@@ -1,23 +1,23 @@
 package com.wyl.mall.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.wyl.mall.common.VerifyCode;
+import com.wyl.mall.dto.*;
+import com.wyl.mall.utils.JWTUtil;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
+import com.wyl.mall.utils.UploadAvatar;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.UsersEntity;
 import com.wyl.mall.service.UsersService;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 
 /**
@@ -34,47 +34,95 @@ public class UsersController {
     private UsersService usersService;
 
     /**
-     * 注册
+     * 普通用户注册
      */
-    @GetMapping("/reg")
-    public R reg(HttpServletResponse response, HttpServletRequest request) {
-        String randomText = "";
-        try {
-
-            int width=200;
-
-            int height=69;
-
-            BufferedImage verifyImg=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-
-//生成对应宽高的初始图片
-
-            randomText = VerifyCode.drawRandomText(width,height,verifyImg);
-
-//单独的一个类方法，出于代码复用考虑，进行了封装。
-
-//功能是生成验证码字符并加上噪点，干扰线，返回值为验证码字符
-
-//            request.getSession().setAttribute("verifyCode", randomText);
-
-//            response.setContentType("image/png");//必须设置响应内容类型为图片，否则前台不识别
-
-            OutputStream os = response.getOutputStream(); //获取文件输出流
-
-//           ImageIO.write(verifyImg, "png", os);//输出图片流
-
-//            os.flush();
-
-//            os.close();//关闭流
-
-        } catch (IOException e) {
-
-
-            e.printStackTrace();
-
+    @PostMapping("/regMember")
+    public R regMember(@Valid @RequestBody UserMemberRegDto userMember) {
+        UsersEntity users =  usersService.selectUser(userMember.getMobile());
+        if (users != null) {
+            return R.error(401,"该用户已被注册");
         }
-        return R.ok().put("yzm",randomText);
+        R r = usersService.regMember(userMember);
+        return r;
+    }
+    /**
+     * 商家注册
+     */
+    @PostMapping("/regBusiness")
+    public R regBusiness(@Valid @RequestBody UserBusinessRegDto userBusiness) {
+        UsersEntity users =  usersService.selectBusiness(userBusiness.getMobile());
+        if (users != null) {
+            return R.error(401,"该用户已被注册");
+        }
+        R r = usersService.regBusiness(userBusiness);
+        return r;
+    }
 
+    /**
+     * 登录
+     */
+    @PostMapping("/login")
+    public R login(@Valid @RequestBody UserLoginDto userLogin) {
+        R r = usersService.login(userLogin);
+        return r;
+    }
+
+    /**
+     * 修改密码
+     */
+    @PostMapping("/updatePassword")
+    public R updatePassword(@Valid @RequestBody UserUpdatePasswordDto userUpdatePassword,
+                            HttpServletRequest request) {
+        String token = request.getHeader("token");
+        R r =usersService.updatePassword(userUpdatePassword,token);
+        return r;
+    }
+
+    /**
+     * 忘记密码
+     */
+    @PostMapping("/forgetPassword")
+    public R forgetPassword(@Valid @RequestBody UserLoginDto userLogin) {
+        R r = usersService.forgetPassword(userLogin);
+        return r;
+    }
+
+    /**
+     * 个人信息展示
+     */
+    @GetMapping("/getUserInfo")
+    public R getUserInfo(@RequestParam("id") Long id) {
+        R r = usersService.getUserInfo(id);
+        return r;
+    }
+
+    /**
+     * 修改个人信息
+     */
+    @PostMapping("/updateUsersInfo")
+    public R updateUsersInfo(UserInfoDto userInfo,
+                             @RequestParam("file") MultipartFile file,
+                             HttpServletRequest request) {
+        String filepath = System.getProperty("user.dir")+"\\src\\main\\resources\\avatar\\";
+        //上传头像
+        UploadAvatar.uploadPhoto(filepath, file);
+
+        UsersEntity usersEntity = new UsersEntity();
+        BeanUtils.copyProperties(userInfo,usersEntity);
+        usersEntity.setAvatarUrl(file.getOriginalFilename());
+
+        String token = request.getHeader("token");
+        R r = usersService.updateUsersInfo(usersEntity,token);
+        return r;
+    }
+    /**
+     * 退出登录
+     */
+    @GetMapping("/quiteLogin")
+    public R quiteLogin(@RequestParam("id")String id, HttpServletRequest request) {
+        String token = request.getHeader("token");
+        R r = usersService.quiteLogin(id,token);
+        return r;
     }
 
     /**

@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户
@@ -17,6 +20,8 @@ import lombok.Data;
  */
 @Data
 @TableName("users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsersEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -278,4 +283,9 @@ public class UsersEntity implements Serializable {
 	 */
 	private Integer dataSource;
 
+	public UsersEntity(String dtype, Long id, Date createdDate) {
+		this.dtype = dtype;
+		this.id = id;
+		this.createdDate = createdDate;
+	}
 }

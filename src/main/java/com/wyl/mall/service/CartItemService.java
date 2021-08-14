@@ -2,6 +2,7 @@ package com.wyl.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.mall.entity.CartItemEntity;
+import com.wyl.mall.entity.UsersEntity;
 import com.wyl.mall.utils.PageUtils;
 
 import java.util.Map;

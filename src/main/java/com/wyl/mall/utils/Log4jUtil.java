@@ -13,14 +13,15 @@ import org.slf4j.LoggerFactory;
  **/
 public class Log4jUtil {
     private static final Logger logger = LoggerFactory.getLogger(Log4jUtil.class);
+
     public static void info(String info) {
         logger.info(info);
     }
+
     public static void error(String error) {
         logger.error(error);
     }
-    public static void warn(String warn) {
-        logger.warn(warn);
-    }
+
+    public static void warn(String warn) { logger.warn(warn); }
 
 }

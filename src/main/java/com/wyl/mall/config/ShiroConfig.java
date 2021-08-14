@@ -52,7 +52,7 @@ public class ShiroConfig {
 //        linkedHashMap.put("/user/test","authc");
         //所有的请求都先走过滤器
 
-//        linkedHashMap.put("/**","jwt");
+        linkedHashMap.put("/**","jwt");
 
         bean.setFilterChainDefinitionMap(linkedHashMap);
 
@@ -91,10 +91,7 @@ public class ShiroConfig {
      * 自定义处理授权认证
      * @return
      */
-    @Bean
-    public UserRealm userRealm() {
-        return new UserRealm();
-    }
+
 
     @Bean
     public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
@@ -109,6 +106,10 @@ public class ShiroConfig {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager); // 这里需要注入 SecurityManger 安全管理器
         return authorizationAttributeSourceAdvisor;
+    }
+    @Bean
+    public UserRealm userRealm() {
+        return new UserRealm();
     }
 
 }
