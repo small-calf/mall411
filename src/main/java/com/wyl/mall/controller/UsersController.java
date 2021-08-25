@@ -125,6 +125,16 @@ public class UsersController {
         return r;
     }
 
+    @GetMapping("/noAuth")
+    public R noAuth() {
+        return R.error(401,"当前页面未授权");
+    }
+
+    @GetMapping("/noLogin")
+    public R noLogin() {
+        return R.error(401,"当前页面未登录");
+    }
+
     /**
      * 列表
      */

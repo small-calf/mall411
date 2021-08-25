@@ -6,11 +6,7 @@ import java.util.Map;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.ProductCategoryEntity;
 import com.wyl.mall.service.ProductCategoryService;
@@ -30,6 +26,25 @@ import com.wyl.mall.service.ProductCategoryService;
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
+
+
+    /**
+     * 查询三级分类
+     */
+    @GetMapping("/threeProductCategory")
+    public R threeProductCategory() {
+        R r = productCategoryService.threeProductCategory();
+        return r;
+    }
+
+    /**
+     * 查询一级分类
+     */
+    @GetMapping("/oneProductCategory")
+    public R onrProductCategory() {
+        R r = productCategoryService.oneProductCategory();
+        return r;
+    }
 
     /**
      * 列表

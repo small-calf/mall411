@@ -1,8 +1,10 @@
 package com.wyl.mall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wyl.mall.dto.LikeProductDto;
 import com.wyl.mall.entity.ProductFavoriteEntity;
 import com.wyl.mall.utils.PageUtils;
+import com.wyl.mall.utils.R;
 
 import java.util.Map;
 
@@ -16,5 +18,9 @@ import java.util.Map;
 public interface ProductFavoriteService extends IService<ProductFavoriteEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    R likeProduct(LikeProductDto likeProductDto);
+
+    R seeLikeProduct(Long id);
 }
 

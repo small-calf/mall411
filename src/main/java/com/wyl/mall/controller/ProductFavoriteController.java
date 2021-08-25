@@ -3,18 +3,18 @@ package com.wyl.mall.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.wyl.mall.dto.LikeProductDto;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.ProductFavoriteEntity;
 import com.wyl.mall.service.ProductFavoriteService;
 
+import javax.validation.Valid;
 
 
 /**
@@ -29,6 +29,27 @@ import com.wyl.mall.service.ProductFavoriteService;
 public class ProductFavoriteController {
     @Autowired
     private ProductFavoriteService productFavoriteService;
+
+    /**
+     * 收藏商品
+     * 权限验证
+     */
+    @PostMapping("/likeProduct")
+    public R likeProduct(@Valid @RequestBody LikeProductDto likeProductDto) {
+        R r = productFavoriteService.likeProduct(likeProductDto);
+        return r;
+    }
+    /**
+     * 查看收藏的商品
+     * 权限验证
+     */
+    @GetMapping("/seeLikeProduct")
+//    @RequiresPermissions("item:test")
+    public R seeLikeProduct(@RequestParam("id") Long id) {
+        R r = productFavoriteService.seeLikeProduct(id);//根据用户id查看所收藏的商品
+        return r;
+    }
+
 
     /**
      * 列表

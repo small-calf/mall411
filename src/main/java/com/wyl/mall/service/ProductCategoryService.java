@@ -3,6 +3,7 @@ package com.wyl.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.mall.entity.ProductCategoryEntity;
 import com.wyl.mall.utils.PageUtils;
+import com.wyl.mall.utils.R;
 
 import java.util.Map;
 
@@ -16,5 +17,11 @@ import java.util.Map;
 public interface ProductCategoryService extends IService<ProductCategoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    R threeProductCategory();
+
+    R oneProductCategory();
+
+    Long searchIdByName(String categoryName);
 }
 

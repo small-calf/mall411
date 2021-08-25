@@ -5,6 +5,7 @@ package com.wyl.mall.controller;/**
  * @version:1.0
  */
 
+import cn.hutool.core.util.RandomUtil;
 import com.wyl.mall.common.VerifyCode;
 import com.wyl.mall.utils.R;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * 验证码
@@ -32,24 +34,10 @@ public class SmsController {
     @GetMapping("/captcha")
     public R smsCaptcha(HttpServletResponse response, HttpServletRequest request) {
         String randomText = "";
-        try {
-
-            int width = 200;
-
-            int height = 69;
-
-            BufferedImage verifyImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-//生成对应宽高的初始图片
-
-            randomText = VerifyCode.drawRandomText(width, height, verifyImg);
 
 
-        } catch (Exception e) {
+        randomText = RandomUtil.randomString(4);
 
-            e.printStackTrace();
-
-        }
         captcha = randomText;
         HashMap<String, Object> map = new HashMap<>();
         map.put("captcha",randomText);

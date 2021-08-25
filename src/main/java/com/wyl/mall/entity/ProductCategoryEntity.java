@@ -1,10 +1,14 @@
 package com.wyl.mall.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -92,5 +96,9 @@ public class ProductCategoryEntity implements Serializable {
 	 * 是否有效
 	 */
 	private Boolean isEffective;
+
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)//当这个字段不为空时才显示
+	@TableField(exist = false)
+	private List<ProductCategoryEntity> children;
 
 }

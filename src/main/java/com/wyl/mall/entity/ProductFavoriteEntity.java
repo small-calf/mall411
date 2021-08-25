@@ -27,11 +27,11 @@ public class ProductFavoriteEntity implements Serializable {
 	/**
 	 * 创建日期
 	 */
-	private Date createdDate;
+	private Date createdDate = new Date();
 	/**
 	 * 最后修改日期
 	 */
-	private Date lastModifiedDate;
+	private Date lastModifiedDate = new Date();
 	/**
 	 * 版本
 	 */

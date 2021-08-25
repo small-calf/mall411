@@ -206,7 +206,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersDao, UsersEntity> impleme
         usersEntity.setEncodedPassword(encodePassword);
         usersDao.updateById(usersEntity);
 
-        return R.ok().put("data","密码设置成功");
+        return R.ok();
     }
 
     @Override
@@ -221,7 +221,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersDao, UsersEntity> impleme
         String encodePassword = SecureUtil.md5(userLogin.getEncodedPassword());
         usersEntity.setEncodedPassword(encodePassword);
         usersDao.update(usersEntity,usersWrapper);
-        return R.ok().put("data","密码设置成功");
+        return R.ok();
     }
 
     @Override
@@ -252,7 +252,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersDao, UsersEntity> impleme
 
         //修改信息
         usersDao.updateById(usersEntity);
-        return R.ok().put("data","用户信息修改成功");
+        return R.ok();
     }
 
     @Override
@@ -262,7 +262,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersDao, UsersEntity> impleme
             return R.error(403,"权限错误");
         }
         redisTemplate.delete(id);
-        return R.ok().put("data","退出成功");
+        return R.ok();
     }
 
 }

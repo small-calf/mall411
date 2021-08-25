@@ -52,15 +52,18 @@ public class ShiroConfig {
 //        linkedHashMap.put("/user/test","authc");
         //所有的请求都先走过滤器
 
+//        linkedHashMap.put("/mall/productfavorite/seeLikeProduct","perms[user:add]");
+
         linkedHashMap.put("/**","jwt");
 
         bean.setFilterChainDefinitionMap(linkedHashMap);
 
 
         //设置未授权时跳转
-        bean.setUnauthorizedUrl("/user/auth");
+        bean.setUnauthorizedUrl("/mall/users/noAuth");
         //设置登录请求
-        bean.setLoginUrl("/user/login");
+        bean.setLoginUrl("/mall/users/noLogin");
+
 
         return bean;
     }
