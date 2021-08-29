@@ -1,20 +1,23 @@
 package com.wyl.mall.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.wyl.mall.entity.ProductEntity;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.CartItemEntity;
 import com.wyl.mall.service.CartItemService;
+import springfox.documentation.spring.web.json.Json;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -29,6 +32,73 @@ import com.wyl.mall.service.CartItemService;
 public class CartItemController {
     @Autowired
     private CartItemService cartItemService;
+
+    /**
+     * 查看购物车中的具体某一项
+     */
+    @GetMapping("/item")
+    public R cartItem(@RequestParam("productId") Long productId,
+                      HttpServletRequest request) {
+        R r = cartItemService.cartItem(productId,request);
+        return r;
+    }
+    /**
+     * 加入购物车
+     */
+    @PostMapping("/add")
+    public R cartItemAdd(@RequestParam("productId") Long productId,
+                         HttpServletRequest request) {
+        //查询购物车中是否存在该商品
+        Map<String, Object> map = cartItemService.selectListProduct(productId,request);
+
+        if (map == null) {
+            return R.error(403,"权限错误");
+        }
+
+        Object productEntity = map.get("cartItemEntity");
+
+        if (productEntity == null) {
+            //购物车中没有，加入购物车
+            R r = cartItemService.addCartItem(productId,Long.parseLong(map.get("userId").toString()));
+            return r;
+        }
+
+        //修改购物车的数量
+        R r = cartItemService.updateCartItem(productId, Long.parseLong(map.get("userId").toString()));
+
+        return r;
+
+    }
+    /**
+     * 购物车中的加减(+,-按钮)
+     */
+    @PostMapping("/addorreduce")
+    public R buttonCartItem(@RequestParam("addorreduce") int addorreduce,//addorreduce: 0：加1：减
+                            @RequestParam("productId") Long productId,
+                            HttpServletRequest request) {
+
+        R r = cartItemService.buttonCartItem(productId,addorreduce,request);
+
+        return r;
+    }
+
+    /**
+     * 批量删除购物车
+     */
+    @PostMapping("/select/delete")
+    public R selectDelete(@RequestParam("productId") String productId,
+                          HttpServletRequest request) {
+
+        String[] split = productId.split(",");
+
+
+        R r = cartItemService.selectDelete(split,request);
+
+
+
+        return r;
+    }
+
 
     /**
      * 列表

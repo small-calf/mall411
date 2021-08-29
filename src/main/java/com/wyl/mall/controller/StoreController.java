@@ -6,11 +6,7 @@ import java.util.Map;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.StoreEntity;
 import com.wyl.mall.service.StoreService;
@@ -29,8 +25,29 @@ public class StoreController {
     @Autowired
     private StoreService storeService;
 
+
+    /**
+     * 查询店铺的基本信息
+     * storeId:店铺ID
+     */
+    @GetMapping("/storeInfo")
+    public R storeInfo(@RequestParam("storeId") String storeId) {
+        R r = storeService.storeInfo(storeId);
+        return r;
+    }
+
+    /**
+     * 查询某一店铺的所有商品
+     */
+    @GetMapping("/allProductByStore")
+    public R allProductByStore(@RequestParam("storeId") String storeId) {
+        R r = storeService.selectByStoreId(storeId);
+        return r;
+    }
+
     /**
      * 列表
+     * 展示所有店铺
      */
     @RequestMapping("/list")
     //@RequiresPermissions("mall:store:list")

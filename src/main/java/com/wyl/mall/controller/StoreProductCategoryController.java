@@ -6,11 +6,7 @@ import java.util.Map;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.StoreProductCategoryEntity;
 import com.wyl.mall.service.StoreProductCategoryService;
@@ -28,6 +24,15 @@ import com.wyl.mall.service.StoreProductCategoryService;
 public class StoreProductCategoryController {
     @Autowired
     private StoreProductCategoryService storeProductCategoryService;
+
+    /**
+     * 查询当前店铺的所有商品分类
+     */
+    @GetMapping("/allCategoryByStore")
+    public R allCategoryByStore(@RequestParam("storeId") String storeId) {
+        R r = storeProductCategoryService.allCategoryByStore(storeId);
+        return r;
+    }
 
     /**
      * 列表

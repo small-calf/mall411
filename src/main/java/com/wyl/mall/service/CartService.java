@@ -3,6 +3,7 @@ package com.wyl.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.mall.entity.CartEntity;
 import com.wyl.mall.utils.PageUtils;
+import com.wyl.mall.utils.R;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface CartService extends IService<CartEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    R cart(String token);
 }
 

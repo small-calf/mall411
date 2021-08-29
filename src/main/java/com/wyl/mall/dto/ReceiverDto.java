@@ -1,29 +1,20 @@
-package com.wyl.mall.entity;
+package com.wyl.mall.dto;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
-/**
- * 收货地址
- * 
- * @author calf
- * @email ${email}
- * @date 2021-08-04 00:18:48
- */
-@Data
-@TableName("receiver")
-public class ReceiverEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
-	/**
-	 * ID
-	 */
-	@TableId
+
+@Data
+public class ReceiverDto {
+
 	private Long id;
+
 	/**
 	 * 创建日期
 	 */
@@ -35,7 +26,7 @@ public class ReceiverEntity implements Serializable {
 	/**
 	 * 版本
 	 */
-	private Long version;
+	private Long version = 0L;
 	/**
 	 * 地址
 	 */
@@ -64,9 +55,5 @@ public class ReceiverEntity implements Serializable {
 	 * 地区
 	 */
 	private Long areaId;
-	/**
-	 * 会员
-	 */
-	private Long memberId;
 
 }

@@ -25,7 +25,7 @@ public class UserInfoDto {
 
     private String username;//用户名
 
-//    private String avatarUrl;//头像
+    private String avatarUrl;//头像
 
     private Date birth;//生日
 

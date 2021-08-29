@@ -101,15 +101,15 @@ public class UsersController {
      */
     @PostMapping("/updateUsersInfo")
     public R updateUsersInfo(UserInfoDto userInfo,
-                             @RequestParam("file") MultipartFile file,
+//                             @RequestParam("file") MultipartFile file,
                              HttpServletRequest request) {
-        String filepath = System.getProperty("user.dir")+"\\src\\main\\resources\\avatar\\";
+//        String filepath = System.getProperty("user.dir")+"\\src\\main\\resources\\avatar\\";
         //上传头像
-        UploadAvatar.uploadPhoto(filepath, file);
+//        UploadAvatar.uploadPhoto(filepath, file);
 
         UsersEntity usersEntity = new UsersEntity();
         BeanUtils.copyProperties(userInfo,usersEntity);
-        usersEntity.setAvatarUrl(file.getOriginalFilename());
+//        usersEntity.setAvatarUrl(file.getOriginalFilename());
 
         String token = request.getHeader("token");
         R r = usersService.updateUsersInfo(usersEntity,token);

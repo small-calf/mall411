@@ -56,9 +56,9 @@ public class UserRealm extends AuthorizingRealm {
 //        for (Permission permission : permissions) {
 //            permissionSet.add(permission.getPermName());
 //        }
-        info.setRoles(roleSet);
-        info.setStringPermissions(permissionSet);
-        info.addStringPermission("user:add");
+//        info.setRoles(roleSet);
+//        info.setStringPermissions(permissionSet);
+//        info.addStringPermission("user:add");
         return info;
     }
 

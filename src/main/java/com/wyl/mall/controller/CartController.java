@@ -7,15 +7,12 @@ import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.CartEntity;
 import com.wyl.mall.service.CartService;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -31,6 +28,18 @@ import com.wyl.mall.service.CartService;
 public class CartController {
     @Autowired
     private CartService cartService;
+
+    /**
+     * 需要权限才能查看
+     * 查看当前购物车
+     */
+    @GetMapping("/cart")
+    public R cart(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        R r = cartService.cart(token);
+        return r;
+    }
+
 
     /**
      * 列表

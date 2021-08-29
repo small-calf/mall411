@@ -3,6 +3,7 @@ package com.wyl.mall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.mall.entity.StoreEntity;
 import com.wyl.mall.utils.PageUtils;
+import com.wyl.mall.utils.R;
 
 import java.util.Map;
 
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface StoreService extends IService<StoreEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    R selectByStoreId(String storeId);
+
+    R storeInfo(String storeId);
 }
 

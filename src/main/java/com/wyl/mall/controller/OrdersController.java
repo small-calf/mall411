@@ -3,19 +3,20 @@ package com.wyl.mall.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.wyl.mall.dao.ProductDao;
+import com.wyl.mall.dto.OrdersDto;
 import com.wyl.mall.utils.PageUtils;
 import com.wyl.mall.utils.R;
+import com.wyl.mall.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import com.wyl.mall.entity.OrdersEntity;
 import com.wyl.mall.service.OrdersService;
 
-
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -30,6 +31,29 @@ import com.wyl.mall.service.OrdersService;
 public class OrdersController {
     @Autowired
     private OrdersService ordersService;
+
+    /**
+     * 创建订单
+     */
+    @PostMapping("/createOrders")
+    public R createOrders(@RequestBody OrdersDto ordersDto,
+                          HttpServletRequest request) {
+        R r = ordersService.createOrders(ordersDto,request);
+
+        return r;
+    }
+
+    /**
+     * 查看所有订单
+     */
+    @GetMapping("/listOrders")
+    public R listOrders(HttpServletRequest request) {
+        R r = ordersService.listOrders(request);
+
+        return r;
+    }
+
+
 
     /**
      * 列表
